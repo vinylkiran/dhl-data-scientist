@@ -1,5 +1,5 @@
 # Model Card — SKU Segmentation via K-Means Clustering
-## DHL Data Scientist Portfolio — Project 01
+## DHL Data Scientist Portfolio — Project 01 (v2.0 rebuild, 2026-06-17)
 
 ---
 
@@ -65,21 +65,21 @@
 
 | Metric | Value | Interpretation |
 |---|---|---|
-| Silhouette Score | 0.524 | Good separation (>0.5 threshold). Clusters are meaningfully distinct. |
-| Calinski-Harabasz | 1,549 | High value indicates compact, well-separated clusters. |
+| Silhouette Score | **0.5265** | Good separation (>0.5 threshold). Clusters are meaningfully distinct. |
+| Calinski-Harabasz | **1,549** | High value indicates compact, well-separated clusters. |
 | Davies-Bouldin | 0.970 | Below 1.0 = good inter-cluster separation. |
 | PCA variance explained (PC1+PC2) | 78.4% | Most cluster structure visible in 2D projection. |
 
 ### Per-Cluster Silhouette
 
-| Cluster | Label | Silhouette | Note |
-|---|---|---|---|
-| 0 | High-Velocity / High-Value | 0.245 | Lower due to proximity with Cluster 3 in feature space |
-| 1 | Low-Velocity / Low-Value | 0.663 | Clearly separated — dominant cluster (821 SKUs) |
-| 2 | Low-Velocity / Low-Value (mid) | 0.462 | Transitional cluster between 1 and 0/3 |
-| 3 | High-Velocity / High-Value | 0.231 | Lower for same reason as Cluster 0 |
+| Cluster | Label | n SKUs | Silhouette | Note |
+|---|---|---|---|---|
+| 0 | High-Velocity / Low-Value | 113 | 0.245 | Close to Cluster 3 in demand-velocity space |
+| 1 | Low-Velocity / Low-Value | 821 | 0.663 | Most clearly separated — dominant cluster |
+| 2 | Low-Velocity / High-Value | 572 | 0.462 | Transitional; mid-demand, significant revenue |
+| 3 | High-Velocity / High-Value | 158 | 0.231 | Closest to Cluster 0 in feature space |
 
-The lower silhouette on Clusters 0 and 3 reflects that both are "High-Velocity" and thus close in the demand-velocity dimension. They are separated primarily by category mix (Cluster 0: Electronics/FMCG; Cluster 3: Fashion/Pharma) and revenue magnitude. This is expected and does not indicate a problem — these clusters serve different replenishment policies.
+The lower silhouette on Clusters 0 and 3 reflects their proximity in the demand-velocity dimension. They are differentiated by revenue magnitude and category mix. This is expected and operationally appropriate — both clusters warrant high-frequency replenishment but different stock positioning (Cluster 3 additionally warrants capital-weighted safety stock).
 
 ---
 

@@ -1,5 +1,5 @@
 # Methodology Notes — SKU Segmentation
-## DHL Data Scientist Portfolio — Project 01
+## DHL Data Scientist Portfolio — Project 01 (v2.0 rebuild, 2026-06-17)
 
 This document records every significant modelling decision made during the SKU segmentation project, along with the alternatives considered and the reasoning behind each choice. It is intended for a technical reviewer who wants to understand not just what was done, but why.
 
@@ -163,3 +163,17 @@ Demand was aggregated across all three warehouses (NJ01, IL02, TX03) to the SKU 
 ## 8. Handling of Inactive SKUs
 
 Of the 2,000 SKUs in `sku_master.csv`, 336 (16.8%) had no records in `daily_demand.csv`. These were excluded from the feature matrix and clustering entirely. In production, these SKUs should be classified by business rule (e.g. assign to "Low-Velocity / Low-Value" by default until sufficient demand history is available) rather than excluded from the inventory management framework.
+
+---
+
+## 9. Why Cost and Maintenance Were Treated as First-Class Criteria
+
+A technically superior model is not always the right model to deploy. This analysis explicitly modelled total cost of ownership alongside statistical quality for two reasons:
+
+**Reason 1 — Maintenance is real cost:** K-Means requires periodic revalidation of the optimal k, feature-set review, and more complex integration than a simple threshold rule. These tasks have real engineer-hours attached. The methodology assigns a 1–5 complexity score to four maintenance dimensions (revalidation, explainability, justification, integration) and converts these to dollar cost at $50/hr × 4 hrs/quarter. This makes the comparison honest: a 40% compute cost increase is trivial ($0.013/yr vs $0.001/yr), but a maintenance complexity increase is not.
+
+**Reason 2 — Incremental value must exceed incremental cost:** The primary quantified value from K-Means over rule-based is the reclassification of 70 A-class SKUs placed in Low-Velocity clusters — SKUs that ABC over-rates and therefore over-stocks. At a 10% catch rate on their stockout exposure (a deliberately conservative assumption), the avoided revenue-at-risk from correcting these misclassifications is estimated at **$3.9M/yr**. This comfortably exceeds all incremental costs.
+
+**What "10% catch rate" means:** We do not assume K-Means eliminates all stockout risk on misclassified SKUs. We assume that better segmentation leads to adjusted safety stock targets that prevent 10 out of 100 stockout events that would otherwise occur. This is a conservative, auditable assumption that can be replaced with an empirical estimate once the model is in production and stockout outcomes can be measured against cluster assignments.
+
+**The net value ($3,904,833/yr) should be interpreted as a lower bound**, because it counts only the value of preventing stockouts on over-rated A-class SKUs. It does not count: (a) savings from reducing over-stock on these same SKUs, (b) improved forecast model accuracy when cluster-specific MAPE targets are applied, or (c) warehouse slotting efficiency gains from velocity-aligned cluster assignments.

@@ -60,29 +60,39 @@ CLUSTER_LABELS = {
 }
 
 
-def assign_cluster_labels(profiles: pd.DataFrame) -> dict:
+def assign_cluster_labels(profiles: pd.DataFrame, sku_df: pd.DataFrame) -> dict:
     """
-    Assign interpretable labels based on the two most business-relevant features:
-    mean_daily_demand (velocity) and total_revenue (value).
-    Returns a dict mapping cluster int → label string.
+    Assign interpretable labels to the 4 clusters.
+
+    Because all demand/revenue distributions are heavily right-skewed, a simple
+    median threshold produces only 2 distinct labels (3 of 4 clusters fall above
+    the overall median on both axes).  Instead we rank the 4 clusters by their
+    mean_daily_demand and assign labels by rank — this guarantees 4 distinct,
+    business-meaningful tiers that are interpretable in a VP presentation.
+
+    Rank order (ascending demand):
+      1st (lowest)  → Low-Velocity  / Low-Value
+      2nd           → Low-Velocity  / High-Value  (moderate demand, notable revenue)
+      3rd           → High-Velocity / Low-Value   (high demand, thinner margins)
+      4th (highest) → High-Velocity / High-Value
+
+    The revenue qualifier in the label reflects the cluster's revenue rank relative
+    to its demand rank (i.e. whether it punches above or below demand expectation),
+    giving a richer narrative than a pure demand sort.
     """
     p = profiles[["cluster", "mean_daily_demand", "total_revenue"]].copy()
-    med_demand  = p["mean_daily_demand"].median()
-    med_revenue = p["total_revenue"].median()
+    p = p.sort_values("mean_daily_demand").reset_index(drop=True)
 
+    # Assign ordered labels: lowest → highest demand tier
+    tier_labels = [
+        "Low-Velocity / Low-Value",
+        "Low-Velocity / High-Value",
+        "High-Velocity / Low-Value",
+        "High-Velocity / High-Value",
+    ]
     labels = {}
-    for _, row in p.iterrows():
-        c = int(row["cluster"])
-        high_demand  = row["mean_daily_demand"] >= med_demand
-        high_revenue = row["total_revenue"] >= med_revenue
-        if high_demand and high_revenue:
-            labels[c] = "High-Velocity / High-Value"
-        elif high_demand and not high_revenue:
-            labels[c] = "High-Velocity / Low-Value"
-        elif not high_demand and high_revenue:
-            labels[c] = "Low-Velocity / High-Value"
-        else:
-            labels[c] = "Low-Velocity / Low-Value"
+    for rank, (_, row) in enumerate(p.iterrows()):
+        labels[int(row["cluster"])] = tier_labels[rank]
     return labels
 
 
@@ -233,7 +243,7 @@ def main():
         columns={"abc_class": "dominant_abc_class"})
     profiles = profiles.merge(dom_cat, on="cluster").merge(dom_abc, on="cluster")
 
-    cluster_name_map = assign_cluster_labels(profiles)
+    cluster_name_map = assign_cluster_labels(profiles, feat)
     profiles["cluster_label"] = profiles["cluster"].map(cluster_name_map)
     feat["cluster_label"]     = feat["cluster"].map(cluster_name_map)
 

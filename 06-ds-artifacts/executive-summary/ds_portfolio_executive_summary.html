@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHL Data Scientist Portfolio — Executive Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dhl-red: #D40511;
+    --dhl-yellow: #FFCC00;
+    --bg: #FFFFFF;
+    --dark: #1A1A1A;
+    --grey-panel: #F5F5F5;
+    --grey-border: #E0E0E0;
+    --grey-mid: #6B6B6B;
+    --green: #1A7C3E;
+    --blue: #1A4D7C;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); color: var(--dark); background: var(--bg); font-size: 15px; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--dark);
+    border-bottom: 3px solid var(--dhl-yellow);
+    display: flex; align-items: center; gap: 0; height: 52px;
+    padding: 0 24px;
+  }
+  .nav-logo {
+    font-weight: 700; font-size: 16px; color: var(--dhl-yellow);
+    letter-spacing: 0.5px; margin-right: 32px; white-space: nowrap;
+  }
+  .nav-logo span { color: var(--dhl-red); }
+  .nav-links { display: flex; gap: 4px; overflow-x: auto; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 12px; font-weight: 500; padding: 6px 10px;
+    border-radius: 4px; white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+  /* LAYOUT */
+  .page-body { padding-top: 52px; }
+  section { padding: 64px 0; }
+  section:nth-child(even) { background: var(--grey-panel); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* TYPOGRAPHY */
+  h1 { font-size: 42px; font-weight: 700; line-height: 1.15; }
+  h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  h4 { font-size: 14px; font-weight: 600; color: var(--grey-mid); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; }
+  p { margin-bottom: 12px; color: #333; }
+  .section-label { font-size: 11px; font-weight: 600; color: var(--dhl-red); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; }
+  .lead { font-size: 17px; color: #444; line-height: 1.7; }
+
+  /* HERO */
+  #hero { background: var(--dark); padding: 72px 0; }
+  #hero .container { display: flex; gap: 48px; align-items: flex-start; }
+  .hero-left { flex: 1; }
+  .hero-right { width: 320px; flex-shrink: 0; }
+  #hero h1 { color: #fff; margin-bottom: 16px; }
+  #hero .subtitle { color: var(--dhl-yellow); font-size: 14px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 20px; }
+  #hero p { color: rgba(255,255,255,0.78); font-size: 16px; line-height: 1.75; margin-bottom: 12px; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .stat-box { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 16px; }
+  .stat-num { font-size: 28px; font-weight: 700; color: var(--dhl-yellow); line-height: 1; margin-bottom: 4px; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.6px; }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead tr { background: var(--dhl-red); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  tbody tr { border-bottom: 1px solid var(--grey-border); }
+  tbody tr:hover { background: rgba(212,5,17,0.03); }
+  tbody td { padding: 10px 14px; vertical-align: top; }
+  tbody tr:last-child { border-bottom: none; }
+  .alt-row tbody tr:nth-child(even) { background: #FAFAFA; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; padding: 3px 9px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px; white-space: nowrap;
+  }
+  .badge-green { background: #E8F5EE; color: #1A7C3E; border: 1px solid #9ED4B2; }
+  .badge-blue { background: #E8EFF7; color: #1A4D7C; border: 1px solid #9AB5D4; }
+  .badge-grey { background: #F0F0F0; color: #555; border: 1px solid #CCC; }
+  .badge-yellow { background: #FFF8E1; color: #7A5F00; border: 1px solid #FFD54F; }
+  .badge-red { background: #FDECEC; color: #9C0009; border: 1px solid #F5AAAA; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 24px; }
+  .card {
+    background: #fff; border: 1px solid var(--grey-border);
+    border-radius: 10px; padding: 24px;
+    border-top: 4px solid var(--dhl-red);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .card-num { font-size: 32px; font-weight: 700; color: var(--dhl-red); line-height: 1; margin-bottom: 6px; }
+  .card-desc { font-size: 13px; color: var(--grey-mid); }
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+
+  /* PROJECT SECTIONS */
+  .project-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 28px; }
+  .project-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--dhl-red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; flex-shrink: 0;
+  }
+  .project-title-block h2 { margin-bottom: 4px; }
+  .project-title-block .subtitle-text { color: var(--grey-mid); font-size: 14px; }
+  .key-metric {
+    background: var(--dark); color: #fff;
+    border-radius: 8px; padding: 16px 20px;
+    display: inline-flex; align-items: center; gap: 16px;
+    margin: 16px 0;
+  }
+  .key-metric .km-num { font-size: 28px; font-weight: 700; color: var(--dhl-yellow); }
+  .key-metric .km-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .key-metrics-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+  .mini-metric { background: var(--grey-panel); border-radius: 8px; padding: 12px 16px; min-width: 140px; }
+  .mini-metric .mn { font-size: 22px; font-weight: 700; color: var(--dhl-red); }
+  .mini-metric .ml { font-size: 11px; color: var(--grey-mid); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* METHODOLOGY DIAGRAM */
+  .method-flow { display: flex; align-items: stretch; gap: 0; margin: 28px 0; overflow-x: auto; }
+  .flow-step {
+    flex: 1; min-width: 140px;
+    background: #fff; border: 1px solid var(--grey-border);
+    border-radius: 0; padding: 18px 14px;
+    text-align: center; position: relative;
+  }
+  .flow-step:first-child { border-radius: 10px 0 0 10px; }
+  .flow-step:last-child { border-radius: 0 10px 10px 0; }
+  .flow-step::after {
+    content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+    font-size: 20px; color: var(--dhl-red); font-weight: 700; z-index: 1;
+    background: #fff; padding: 0 2px;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--dhl-red); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+  .flow-step-title { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .flow-step-detail { font-size: 11px; color: var(--grey-mid); line-height: 1.4; }
+  .flow-projects { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; }
+  .flow-projects span {
+    font-size: 10px; background: var(--dhl-yellow); color: var(--dark);
+    padding: 1px 5px; border-radius: 3px; font-weight: 600;
+  }
+
+  /* DECISION CALLOUT */
+  .decision-box {
+    border-left: 4px solid var(--dhl-red);
+    background: #FFF8F8; padding: 14px 18px;
+    border-radius: 0 8px 8px 0; margin: 16px 0;
+  }
+  .decision-box .d-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--dhl-red); margin-bottom: 4px; }
+  .decision-box .d-text { font-size: 14px; font-weight: 600; color: var(--dark); }
+
+  /* SKILLS GRID */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
+  .skill-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: #fff; border: 1px solid var(--grey-border); border-radius: 8px; }
+  .skill-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--dhl-red); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .skill-info { flex: 1; }
+  .skill-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .skill-detail { font-size: 12px; color: var(--grey-mid); }
+
+  /* DIVIDER */
+  .section-divider { border: none; border-top: 2px solid var(--grey-border); margin: 32px 0; }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 32px; text-align: center; font-size: 13px; }
+  footer strong { color: var(--dhl-yellow); }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    #hero .container { flex-direction: column; }
+    .hero-right { width: 100%; }
+    .method-flow { flex-direction: column; }
+    .flow-step { border-radius: 8px !important; }
+    .flow-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -14px; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DHL <span>|</span> Data Scientist Portfolio</div>
+  <div class="nav-links">
+    <a href="#methodology">Methodology</a>
+    <a href="#p1">SKU Segmentation</a>
+    <a href="#p2">Demand Forecasting</a>
+    <a href="#p3">RFM &amp; A/B Test</a>
+    <a href="#p4">Warehouse Opt.</a>
+    <a href="#p5">Anomaly Detection</a>
+    <a href="#summary">Summary</a>
+    <a href="#skills">Skills</a>
+  </div>
+</nav>
+
+<div class="page-body">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-left">
+      <div class="subtitle">Production-Grade Data Science Portfolio</div>
+      <h1>DHL Supply Chain<br>Data Science Portfolio</h1>
+      <p style="margin-top:20px;">Five end-to-end data science projects across clustering, forecasting, causal inference, operations research, and anomaly detection — all applied to a common synthetic DHL supply chain dataset.</p>
+      <p>Every project follows the same discipline: compare against a simple baseline, validate robustness, quantify cost vs value, then make a justified production decision. The goal is not to build the most sophisticated model — it is to build the right model for the business problem.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Production Models / Systems Delivered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">28</div>
+          <div class="stat-label">Methods Evaluated Across Portfolio</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">$6.8M</div>
+          <div class="stat-label">Estimated Annual Value Generated</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Distinct DS Skill Domains Applied</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-label">Consistent Framework</div>
+    <h2>The Same Methodology, Five Times</h2>
+    <p class="lead" style="margin-top:10px; margin-bottom:28px;">Every project follows a five-stage evaluation pipeline. The framework ensures that production decisions are based on evidence — not model preference or seniority of the analyst who ran the last notebook.</p>
+
+    <div class="method-flow">
+      <div class="flow-step">
+        <div class="flow-step-num">1</div>
+        <div class="flow-step-title">Baseline First</div>
+        <div class="flow-step-detail">Establish and measure the naive / rule-based method before evaluating anything complex</div>
+        <div class="flow-projects">
+          <span>P1</span><span>P2</span><span>P3</span><span>P4</span><span>P5</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">2</div>
+        <div class="flow-step-title">Model Building</div>
+        <div class="flow-step-detail">Evaluate all candidate methods with at least two independent metrics and proper temporal validation</div>
+        <div class="flow-projects">
+          <span>P1</span><span>P2</span><span>P3</span><span>P4</span><span>P5</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">3</div>
+        <div class="flow-step-title">Robustness Testing</div>
+        <div class="flow-step-detail">Re-run with different seeds, time windows, and hyperparameter values to confirm stability</div>
+        <div class="flow-projects">
+          <span>P1</span><span>P2</span><span>P4</span><span>P5</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">4</div>
+        <div class="flow-step-title">Cost-Benefit Analysis</div>
+        <div class="flow-step-detail">Quantify compute, maintenance, FP investigation cost, and incremental value vs baseline</div>
+        <div class="flow-projects">
+          <span>P1</span><span>P2</span><span>P3</span><span>P4</span><span>P5</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">5</div>
+        <div class="flow-step-title">Production Decision</div>
+        <div class="flow-step-detail">A written recommendation with one clear decision, one key number, and conditions for reversal</div>
+        <div class="flow-projects">
+          <span>P1</span><span>P2</span><span>P3</span><span>P4</span><span>P5</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:20px; color:var(--grey-mid); font-size:13px;">In three of five projects, the recommended method was more complex than the baseline — because the data supported it. In two projects, a simpler method was co-deployed or chosen over a technically superior alternative because the operational cost of the complex method outweighed its incremental benefit. This is what production-grade data science looks like.</p>
+  </div>
+</section>
+
+<!-- PROJECT 1 -->
+<section id="p1">
+  <div class="container">
+    <div class="project-header">
+      <div class="project-num">1</div>
+      <div class="project-title-block">
+        <h2>SKU Segmentation</h2>
+        <div class="subtitle-text">K-Means clustering to replace rule-based ABC/XYZ classification — 1,664 SKUs, 9 demand-pattern features</div>
+      </div>
+    </div>
+
+    <div class="key-metrics-row">
+      <div class="mini-metric"><div class="mn">0.5265</div><div class="ml">Silhouette Score</div></div>
+      <div class="mini-metric"><div class="mn">0.9989</div><div class="ml">Seed-Stability ARI</div></div>
+      <div class="mini-metric"><div class="mn">0.002</div><div class="ml">ARI vs XYZ (K-Means captures what XYZ misses)</div></div>
+      <div class="mini-metric"><div class="mn">$3.9M</div><div class="ml">Net Annual Value</div></div>
+    </div>
+
+    <div class="decision-box">
+      <div class="d-label">Production Decision</div>
+      <div class="d-text">DEPLOY K-MEANS AS PRIMARY — Replace rule-based XYZ; retain ABC as audit overlay</div>
+    </div>
+
+    <h4>Cluster Profiles — K=4 Final Solution</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Cluster</th><th>Label</th><th>SKUs</th><th>Silhouette</th><th>Replenishment Policy</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>High-Velocity / Low-Value</td><td>113</td><td>0.245</td><td>Continuous review, bulk order scheduling</td></tr>
+          <tr><td>1</td><td>Low-Velocity / Low-Value</td><td>821</td><td>0.663</td><td>Periodic review, minimal safety stock</td></tr>
+          <tr><td>2</td><td>Low-Velocity / High-Value</td><td>572</td><td>0.462</td><td>Periodic review, capital-weighted safety stock</td></tr>
+          <tr><td>3</td><td>High-Velocity / High-Value</td><td>158</td><td>0.231</td><td>Continuous review, VMI, peak safety stock</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Method Comparison</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Method</th><th>ARI vs K-Means</th><th>Unique Signal</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>K-Means (k=4)</td><td>1.000</td><td>Demand patterns, trend, seasonality, frequency</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>Rule-based ABC</td><td>0.885</td><td>Revenue rank (A=top 20%, B=next 30%, C=bottom 50%)</td><td><span class="badge badge-blue">RETAINED (OVERLAY)</span></td></tr>
+          <tr><td>Rule-based XYZ</td><td>0.002</td><td>Coefficient of variation only — almost no overlap with K-Means</td><td><span class="badge badge-red">REPLACED</span></td></tr>
+          <tr><td>Hierarchical (Ward)</td><td>~0.97+</td><td>Confirms k=4 independently</td><td><span class="badge badge-grey">VALIDATION ONLY</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px; font-size:13.5px;">K-Means identifies <strong>70 A-class SKUs</strong> that ABC over-rates: high revenue but Low-Velocity demand. These SKUs carry misaligned safety stock and wrong replenishment timing. Correcting them at a conservative 10% catch rate on stockout risk generates <strong>$3,904,833 net annual value</strong> at an incremental compute cost of $0.012/year.</p>
+  </div>
+</section>
+
+<!-- PROJECT 2 -->
+<section id="p2">
+  <div class="container">
+    <div class="project-header">
+      <div class="project-num">2</div>
+      <div class="project-title-block">
+        <h2>Demand Forecasting</h2>
+        <div class="subtitle-text">8 forecasting methods evaluated across 1,664 SKUs — training Jan–Sep 2023, test Oct–Dec 2023 (92-day holdout)</div>
+      </div>
+    </div>
+
+    <div class="key-metrics-row">
+      <div class="mini-metric"><div class="mn">57.4%</div><div class="ml">LightGBM Overall MAPE</div></div>
+      <div class="mini-metric"><div class="mn">p=0.046</div><div class="ml">LightGBM vs SES (paired t-test)</div></div>
+      <div class="mini-metric"><div class="mn">670×</div><div class="ml">ARIMA more expensive than LightGBM</div></div>
+      <div class="mini-metric"><div class="mn">$0.0025</div><div class="ml">Total monthly compute (all 1,664 SKUs)</div></div>
+    </div>
+
+    <div class="decision-box">
+      <div class="d-label">Production Decision</div>
+      <div class="d-text">LightGBM (all ABC classes) + Croston/SBA override for intermittent SKUs — total $0.0025/month</div>
+    </div>
+
+    <h4>MAPE by Model and ABC Class</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Model</th><th>A-Class MAPE</th><th>B-Class MAPE</th><th>C-Class MAPE</th><th>Overall MAPE</th><th>Monthly Cost</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LightGBM</strong></td><td>66.5%</td><td>55.5%</td><td>57.4%</td><td><strong>57.4%</strong></td><td>$0.0022</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>XGBoost</td><td>68.5%</td><td>55.5%</td><td>48.6%</td><td>57.5%</td><td>$0.0033</td><td><span class="badge badge-grey">NOT DEPLOYED</span></td></tr>
+          <tr><td>SES</td><td>67.0%</td><td>56.9%</td><td>75.5%</td><td>66.5%</td><td>$0.0092</td><td><span class="badge badge-blue">FALLBACK / COLD-START</span></td></tr>
+          <tr><td>Naive</td><td>85.4%</td><td>71.4%</td><td>83.0%</td><td>79.9%</td><td>$0.0002</td><td><span class="badge badge-blue">MONITORING BENCHMARK</span></td></tr>
+          <tr><td>ARIMA</td><td colspan="3" style="text-align:center;">80.3% (12-SKU sample)</td><td>80.3%</td><td>$1.48</td><td><span class="badge badge-red">REJECTED</span></td></tr>
+          <tr><td>SARIMA</td><td colspan="3" style="text-align:center;">80.6% (12-SKU sample)</td><td>80.6%</td><td>$2.77</td><td><span class="badge badge-red">REJECTED</span></td></tr>
+          <tr><td>Seasonal Naive</td><td>93.1%</td><td>77.3%</td><td>80.9%</td><td>83.8%</td><td>$0.0002</td><td><span class="badge badge-red">REJECTED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Intermittent SKUs (n=36, &gt;40% zero-demand days)</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Method</th><th>MAPE</th><th>Bias</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Croston</strong></td><td><strong>70.2%</strong></td><td>−1.39</td><td><span class="badge badge-green">DEPLOYED (OVERRIDE)</span></td></tr>
+          <tr><td>Croston SBA</td><td>70.3%</td><td>−1.88</td><td><span class="badge badge-grey">NOT DEPLOYED</span></td></tr>
+          <tr><td>SES</td><td>71.4%</td><td>−1.40</td><td><span class="badge badge-grey">NOT DEPLOYED</span></td></tr>
+          <tr><td>Naive</td><td>88.6%</td><td>−1.88</td><td><span class="badge badge-grey">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px; font-size:13.5px;">ARIMA was rejected despite being a "classic" time-series method: it costs <strong>670× more than LightGBM</strong> ($1.48 vs $0.0022/month) while producing a MAPE of 80.3% — worse than the Naive baseline (79.9%). Most ARIMA SKUs selected the (0,1,1) order, mathematically equivalent to SES. ARIMA's complexity added cost without adding accuracy.</p>
+  </div>
+</section>
+
+<!-- PROJECT 3 -->
+<section id="p3">
+  <div class="container">
+    <div class="project-header">
+      <div class="project-num">3</div>
+      <div class="project-title-block">
+        <h2>RFM Segmentation &amp; A/B Test</h2>
+        <div class="subtitle-text">Customer retention campaign for At Risk segment — 398 scored customers, n=95 At Risk, stratified A/B test design</div>
+      </div>
+    </div>
+
+    <div class="key-metrics-row">
+      <div class="mini-metric"><div class="mn">15.2pp</div><div class="ml">Absolute Lift (treatment vs control)</div></div>
+      <div class="mini-metric"><div class="mn">p=0.014</div><div class="ml">Two-proportion z-test</div></div>
+      <div class="mini-metric"><div class="mn">$482K</div><div class="ml">Incremental Revenue (95 customers)</div></div>
+      <div class="mini-metric"><div class="mn">63,407%</div><div class="ml">Realised ROI</div></div>
+    </div>
+
+    <div class="decision-box">
+      <div class="d-label">Production Decision</div>
+      <div class="d-text">SCALE TO FULL AT RISK POPULATION — p=0.014, CI excludes zero, all guardrails passed</div>
+    </div>
+
+    <h4>A/B Test Results</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Metric</th><th>Treatment (n=46)</th><th>Control (n=46)</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Conversion rate</td><td>97.8% (45/46)</td><td>82.6% (38/46)</td><td><strong>+15.2pp lift</strong></td></tr>
+          <tr><td>Relative lift</td><td colspan="2" style="text-align:center;">—</td><td>18.4%</td></tr>
+          <tr><td>95% Confidence Interval</td><td colspan="2" style="text-align:center;">—</td><td>[3.5pp, 27.0pp] — excludes zero</td></tr>
+          <tr><td>Z-statistic</td><td colspan="2" style="text-align:center;">—</td><td>2.457</td></tr>
+          <tr><td>p-value</td><td colspan="2" style="text-align:center;">—</td><td><strong>0.0140</strong> (threshold 0.05) ✓</td></tr>
+          <tr><td>AOV guardrail</td><td colspan="2" style="text-align:center;">—</td><td>PASS — no revenue dilution</td></tr>
+          <tr><td>Post-hoc power</td><td colspan="2" style="text-align:center;">—</td><td>0.772</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">RFM Segment Distribution (398 customers)</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Segment</th><th>N</th><th>%</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><strong>At Risk</strong></td><td><strong>95</strong></td><td><strong>23.9%</strong></td><td><span class="badge badge-green">RETENTION CAMPAIGN (tested)</span></td></tr>
+          <tr><td>Loyal</td><td>63</td><td>15.8%</td><td><span class="badge badge-blue">NURTURE</span></td></tr>
+          <tr><td>Lost</td><td>47</td><td>11.8%</td><td><span class="badge badge-grey">MONITOR</span></td></tr>
+          <tr><td>Potential Loyalist</td><td>45</td><td>11.3%</td><td><span class="badge badge-blue">DEVELOP</span></td></tr>
+          <tr><td>Champions</td><td>41</td><td>10.3%</td><td><span class="badge badge-green">REWARD</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px; font-size:13.5px;">At $8/contact and $33,381 average order value, the break-even lift was <strong>0.024pp — essentially zero</strong>. The decision criterion was never ROI (which is extreme at any positive lift) but whether the lift was statistically real. Pre-registration before any outcome data was observed makes p=0.014 a valid causal claim.</p>
+  </div>
+</section>
+
+<!-- PROJECT 4 -->
+<section id="p4">
+  <div class="container">
+    <div class="project-header">
+      <div class="project-num">4</div>
+      <div class="project-title-block">
+        <h2>Warehouse Optimization</h2>
+        <div class="subtitle-text">Pick-path sequencing, SKU slotting, and affinity-based co-location across 3 warehouses — 219,000 WMS task records</div>
+      </div>
+    </div>
+
+    <div class="key-metrics-row">
+      <div class="mini-metric"><div class="mn">49.8%</div><div class="ml">Distance Reduction (2-Opt vs Naive)</div></div>
+      <div class="mini-metric"><div class="mn">1.75%</div><div class="ml">Gap from Exact Optimal</div></div>
+      <div class="mini-metric"><div class="mn">$2.43M</div><div class="ml">Net Annual Benefit</div></div>
+      <div class="mini-metric"><div class="mn">~1 month</div><div class="ml">Payback Period ($200K impl. cost)</div></div>
+    </div>
+
+    <div class="decision-box">
+      <div class="d-label">Production Decision</div>
+      <div class="d-text">2-Opt route sequencing + LP Joint Slotting for top-200 SKUs + monthly re-optimisation</div>
+    </div>
+
+    <h4>Path Planning Comparison (200-session sample)</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Method</th><th>Mean Distance</th><th>vs Naive</th><th>Gap from Exact</th><th>Monthly Cost</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Naive (WMS task order)</td><td>112.5</td><td>—</td><td>77.0%</td><td>—</td><td><span class="badge badge-grey">BASELINE</span></td></tr>
+          <tr><td>Nearest-Neighbor</td><td>59.1</td><td>−47.4%</td><td>4.69%</td><td>~$0.50</td><td><span class="badge badge-grey">NOT DEPLOYED</span></td></tr>
+          <tr><td><strong>2-Opt (deployed)</strong></td><td><strong>56.5</strong></td><td><strong>−49.8%</strong></td><td><strong>1.75%</strong></td><td><strong>$1.55</strong></td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>Exact TSP (≤8 stops)</td><td>~55.5</td><td>~−50.7%</td><td>0%</td><td>$450</td><td><span class="badge badge-red">REJECTED (NP-hard at scale)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Slotting Optimization (500-session sample)</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Method</th><th>Mean Travel Distance</th><th>vs Current</th><th>Annual Saving</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Current (WMS default)</td><td>60.36</td><td>—</td><td>—</td><td><span class="badge badge-grey">BASELINE</span></td></tr>
+          <tr><td>Greedy (rank by frequency)</td><td>60.13</td><td>+0.4%</td><td>—</td><td><span class="badge badge-grey">NOT DEPLOYED</span></td></tr>
+          <tr><td><strong>LP Joint Optimization</strong></td><td><strong>59.44</strong></td><td><strong>+1.5%</strong></td><td><strong>$75,064</strong></td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Financial Summary</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Annual Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Path planning savings (2-Opt)</td><td><strong>$2,452,887</strong></td></tr>
+          <tr><td>Slotting savings (LP Joint)</td><td><strong>$75,064</strong></td></tr>
+          <tr><td>Total savings</td><td><strong>$2,527,951</strong></td></tr>
+          <tr><td>Compute cost (path + slotting)</td><td>$1,017</td></tr>
+          <tr><td>Re-slotting labour (monthly cadence)</td><td>$92,798</td></tr>
+          <tr><td>Net annual benefit</td><td style="color:var(--green); font-weight:700;">$2,434,136</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px; font-size:13.5px;">Exact TSP was rejected despite being provably optimal: incremental saving over 2-Opt is 1.75% of $2.45M = ~$43K/year, but the monthly cost difference is $450 − $1.55 = $448 × 12 = $5,376/year. The ROI of adding Exact TSP over 2-Opt is positive but marginal — and NP-hard complexity at sessions with 15+ stops makes it inviable in production.</p>
+  </div>
+</section>
+
+<!-- PROJECT 5 -->
+<section id="p5">
+  <div class="container">
+    <div class="project-header">
+      <div class="project-num">5</div>
+      <div class="project-title-block">
+        <h2>WMS Anomaly Detection</h2>
+        <div class="subtitle-text">Hybrid SPC + ML anomaly detection across 3 warehouses and 60 operators — 2,190 warehouse-day records, Jan 2022–Dec 2023</div>
+      </div>
+    </div>
+
+    <div class="key-metrics-row">
+      <div class="mini-metric"><div class="mn">286</div><div class="ml">SPC Anomaly Records (2 years)</div></div>
+      <div class="mini-metric"><div class="mn">148</div><div class="ml">IF-Only Flags (not caught by SPC)</div></div>
+      <div class="mini-metric"><div class="mn">$7,428</div><div class="ml">Annual Saving: Hybrid vs SPC-Only</div></div>
+      <div class="mini-metric"><div class="mn">$110</div><div class="ml">Total Monthly Monitoring Cost</div></div>
+    </div>
+
+    <div class="decision-box">
+      <div class="d-label">Production Decision</div>
+      <div class="d-text">HYBRID: SPC + CUSUM (daily, Layer 1) + Isolation Forest (weekly, Layer 2) + LOF operator (weekly, Layer 3)</div>
+    </div>
+
+    <h4>Detection Methods — What Each Layer Catches</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Layer</th><th>Method</th><th>Cadence</th><th>Scope</th><th>Key Result</th><th>Annual Cost</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Layer 1a</td><td>SPC (Western Electric Rules)</td><td>Daily</td><td>Warehouse</td><td>286 anomaly records; catches point breaches, clusters, sustained shifts, trends</td><td>See hybrid</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>Layer 1b</td><td>CUSUM</td><td>Daily</td><td>Warehouse</td><td>15 additional gradual drift events vs Western Electric alone</td><td>See hybrid</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>Layer 2</td><td>Isolation Forest</td><td>Weekly</td><td>Warehouse</td><td>110 warehouse-days flagged; 148 IF-only flags over 2 years</td><td>See hybrid</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>Layer 3</td><td>LOF (operator level)</td><td>Weekly</td><td>Operator</td><td>139 operator-day anomalies; ~6 flags/month (manageable)</td><td>$2,184/yr</td><td><span class="badge badge-green">DEPLOYED</span></td></tr>
+          <tr><td>—</td><td>LOF (warehouse level)</td><td>—</td><td>Warehouse</td><td>IF vs LOF Jaccard=0.152 — doubles alert volume, marginal gain</td><td>—</td><td><span class="badge badge-red">NOT DEPLOYED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Cross-Method Agreement (Warehouse-Day Level)</h4>
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead><tr><th>Method Pair</th><th>Both Flagged</th><th>Jaccard</th><th>Cohen's κ</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>SPC vs Isolation Forest</td><td>33 days</td><td>0.103</td><td>0.127</td><td>Low agreement — methods detect different signal types (temporal vs multi-feature)</td></tr>
+          <tr><td>SPC vs LOF</td><td>21 days</td><td>0.063</td><td>0.054</td><td>Very low — complementary signals</td></tr>
+          <tr><td>IF vs LOF</td><td>29 days</td><td>0.152</td><td>0.225</td><td>Highest pairwise agreement among ML methods; still detecting different anomaly types</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin-top:24px;">Financial Case — SPC-Only vs Hybrid</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>SPC Only</th><th>Hybrid (Recommended)</th><th>Saving</th></tr></thead>
+        <tbody>
+          <tr><td>Annual compute cost</td><td>&lt;$0.01</td><td>&lt;$0.20</td><td>—</td></tr>
+          <tr><td>Annual FP investigation cost</td><td>$8,748</td><td>$1,320</td><td>$7,428</td></tr>
+          <tr><td>Early detection value (3WH × 4 incidents × $1,750)</td><td>$21,000</td><td>$21,000</td><td>—</td></tr>
+          <tr><td><strong>Net annual value vs no monitoring</strong></td><td>$12,252</td><td style="color:var(--green); font-weight:700;">$19,680</td><td style="color:var(--green); font-weight:700;">+$7,428</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px; font-size:13.5px;">Counterintuitively, the hybrid (which includes ML) is <strong>cheaper than SPC-alone</strong> — because Isolation Forest's lower false-positive rate reduces the supervisor investigation burden by $7,428/year. The "simpler" SPC-only approach has higher total operational cost.</p>
+  </div>
+</section>
+
+<!-- SUMMARY TABLE -->
+<section id="summary">
+  <div class="container">
+    <div class="section-label">Portfolio-Wide View</div>
+    <h2>All 5 Projects — One Table</h2>
+    <p style="margin-top:10px; margin-bottom:24px; color:var(--grey-mid);">Simple vs complex, decision, and the primary quantitative justification for each project.</p>
+
+    <div class="table-wrap">
+      <table class="alt-row">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Project</th>
+            <th>Simple Baseline</th>
+            <th>Complex Method</th>
+            <th>Decision</th>
+            <th>Key Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>SKU Segmentation</td>
+            <td>Rule-based ABC/XYZ<br><small>$0.001/yr compute</small></td>
+            <td>K-Means (k=4, 9 features)<br><small>$0.013/yr compute</small></td>
+            <td><span class="badge badge-green">Complex justified</span></td>
+            <td>$3,904,833 net annual value; seed-stability ARI=0.9989; ARI vs XYZ=0.002</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Demand Forecasting</td>
+            <td>Naive / SES<br><small>$0.0002–$0.0092/mo</small></td>
+            <td>LightGBM global<br><small>$0.0022/mo</small></td>
+            <td><span class="badge badge-green">Complex justified; ARIMA rejected</span></td>
+            <td>p=0.046 vs SES; ARIMA 670× more expensive with worse MAPE (80.3% vs 57.4%)</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>RFM &amp; A/B Test</td>
+            <td>Uncontrolled before/after</td>
+            <td>Pre-registered two-proportion z-test, stratified</td>
+            <td><span class="badge badge-blue">Statistical rigour justified</span></td>
+            <td>p=0.014; 15.2pp lift; $482,652 incremental revenue at $760 campaign cost (ROI ~63,407%)</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>Warehouse Optimization</td>
+            <td>Naive WMS path<br>WMS default slotting</td>
+            <td>2-Opt + LP Joint Slotting<br><small>Exact TSP rejected</small></td>
+            <td><span class="badge badge-green">Complex justified; Exact TSP rejected</span></td>
+            <td>49.8% distance reduction; $2,434,136 net annual benefit; payback ~1 month</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>WMS Anomaly Detection</td>
+            <td>SPC-only<br><small>$8,748/yr total cost</small></td>
+            <td>Hybrid SPC + Isolation Forest<br><small>$1,320/yr total cost</small></td>
+            <td><span class="badge badge-yellow">Hybrid — both deployed for different signals</span></td>
+            <td>Hybrid saves $7,428/yr vs SPC-only; catches 148 additional anomalies SPC misses over 2 years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Competency Map</div>
+    <h2>Skills Demonstrated</h2>
+    <p style="margin-top:10px; margin-bottom:24px;">Each project exercises distinct data science competencies. The portfolio collectively covers the full technical breadth expected of a senior data scientist in operations analytics.</p>
+
+    <div class="skills-grid">
+      <div class="skill-row">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-info">
+          <div class="skill-name">Unsupervised Learning &amp; Clustering</div>
+          <div class="skill-detail">Project 1 — K-Means (Lloyd's), Ward hierarchical, k-selection (silhouette / CH / DB), seed-stability ARI, feature ablation, outlier sensitivity</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">📈</div>
+        <div class="skill-info">
+          <div class="skill-name">Time-Series Forecasting</div>
+          <div class="skill-detail">Project 2 — SES, ARIMA/SARIMA (AIC selection), LightGBM / XGBoost global models, Croston/SBA (intermittent demand), TimeSeriesSplit CV, lag &amp; rolling features</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🔬</div>
+        <div class="skill-info">
+          <div class="skill-name">Causal Inference &amp; Experimental Design</div>
+          <div class="skill-detail">Project 3 — RFM quintile scoring, stratified A/B randomisation, two-proportion z-test, power analysis, pre-registration, guardrail metrics, bootstrap stability</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🗂️</div>
+        <div class="skill-info">
+          <div class="skill-name">Customer Analytics &amp; Segmentation</div>
+          <div class="skill-detail">Project 3 — RFM scoring with Spearman correlation between dimensions, quintile boundary stability, segment-level economic modelling (AOV $33K, break-even lift 0.024pp)</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🛤️</div>
+        <div class="skill-info">
+          <div class="skill-name">Operations Research &amp; Combinatorial Optimisation</div>
+          <div class="skill-detail">Project 4 — TSP (nearest-neighbor, 2-Opt, exact enumeration), LP joint optimisation (PuLP/CBC), complexity analysis (O(n!)), gap-from-optimal validation</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🛒</div>
+        <div class="skill-info">
+          <div class="skill-name">Association Rules &amp; Market Basket Analysis</div>
+          <div class="skill-detail">Project 4 — Manual co-occurrence counting at low support density, lift calculation, permutation test validation (all 50 top pairs at p=0.00), Apriori applicability assessment</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🚨</div>
+        <div class="skill-info">
+          <div class="skill-name">Statistical Process Control &amp; Monitoring</div>
+          <div class="skill-detail">Project 5 — Western Electric rules (4 rules), CUSUM (k=0.5, h=4.0), sigma threshold analysis, rolling baseline construction, MAPE monitoring triggers</div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-icon">🔍</div>
+        <div class="skill-info">
+          <div class="skill-name">Unsupervised Anomaly Detection</div>
+          <div class="skill-detail">Project 5 — Isolation Forest (n_estimators=200, contamination=0.05), Local Outlier Factor (n_neighbors=20), cross-method agreement (Jaccard + Cohen's κ), contamination sensitivity analysis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <strong>DHL Data Scientist Portfolio</strong> &nbsp;|&nbsp; Vinyl Kiran &nbsp;|&nbsp;
+    One of three role-specific portfolios: Business Analyst, Data Engineer, Data Scientist — all from the same synthetic DHL supply chain problem.
+  </div>
+  <div style="margin-top:8px; font-size:12px;">
+    Dataset: 1,664 SKUs · 3 Warehouses (NJ01, IL02, TX03) · 730 days · 500 customers · 68,941 orders · 219,000 WMS tasks
+  </div>
+</footer>
+
+</div><!-- .page-body -->
+
+<script>
+  // Highlight active nav section on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + id
+            ? '#fff' : 'rgba(255,255,255,0.75)';
+          a.style.background = a.getAttribute('href') === '#' + id
+            ? 'rgba(255,255,255,0.12)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-52px 0px 0px 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
